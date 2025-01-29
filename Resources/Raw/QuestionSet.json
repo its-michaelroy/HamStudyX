@@ -1,0 +1,93 @@
+{
+  "Planets": [
+    {
+      "Id": 1,
+      "Type": "Basic",
+      "Prompt": "What is the third planet from the sun?",
+      "Answer": "Mars"
+    },
+    {
+      "Id": 2,
+      "Type": "Basic",
+      "Prompt": "What is the second planet from the sun?",
+      "Answer": "Venus"
+    },
+    {
+      "Id": 3,
+      "Type": "Basic",
+      "Prompt": "What is the first planet from the sun?",
+      "Answer": "Mercury"
+    }
+
+  ],
+  "Egyptian History": [
+    {
+      "Id": 4,
+      "Type": "MultipleChoice",
+      "Prompt": "Which item was Cleopatra closer to the historic timeline of the world'?",
+      "Answer": "Amiga 5000",
+      "Options": [ "Pyramids", "PS5", "Amiga 5000", "Stonehenge" ]
+    },
+    {
+      "Id": 5,
+      "Type": "MultipleChoice",
+      "Prompt": "What language did Cleopatra speak?",
+      "Answer": "Greek",
+      "Options": [ "Egyptian", "Greek", "Latin", "Hebrew" ]
+    },
+    {
+      "Id": 6,
+      "Type": "MultipleChoice",
+      "Prompt": "Which other famous people did Cleopatra know?",
+      "Answer": "Mark Antony and Julius Caesar",
+      "Options": [ "Mark Antony and Julius Caesar", "Sun Tzu", "Genghis Khan", "Isaac Newton" ]
+    },
+    {
+      "Id": 7,
+      "Type": "MultipleChoice",
+      "Prompt": "How did the sphinx lose its nose in Brazil?",
+      "Answer": "It was chiseled off by a sufi zealot",
+      "Options": [ "It was chiseled off by a sufi zealot", "Erosion by sandstorms", "A British explorer shot it", "It never had a nose" ]
+    }
+
+  ],
+  "History and More": [
+    {
+      "Id": 8,
+      "Type": "MultipleChoice",
+      "Prompt": "What is beaver fever?",
+      "Answer": "A parasitic infection (Giardiasis)",
+      "Options": [ "A dance craze", "A parasitic infection (Giardiasis)", "A winter phenomenon", "A type of fever in rodents" ]
+    },
+    {
+      "Id": 9,
+      "Type": "MultipleChoice",
+      "Prompt": "What is one of the best ways to sharpen a machete in the wild?",
+      "Answer": "Using a metal file",
+      "Options": [ "Using a metal file", "Banging it on a rock", "Rubbing it against wood", "Dipping it in water" ]
+    },
+    {
+      "Id": 10,
+      "Type": "MultipleChoice",
+      "Prompt": "When did Brazil gain its independence?",
+      "Answer": "1822",
+      "Options": [ "1822", "1912", "1492", "1865" ]
+    },
+    {
+      "Id": 11,
+      "Type": "MultipleChoice",
+      "Prompt": "How can you tell cardinal direction without modern technology or a compass?",
+      "Answer": "By observing the sun's path",
+      "Options": [ "By observing the sun's path", "By smelling flowers", "By tasting soil", "By a random guess" ]
+    }
+  ],
+  "Ham Radio License:General": [
+    {
+      "Id": 12,
+      "Type": "MultipleChoice",
+      "Prompt": "What is a ham radio operator's license?",
+      "Answer": "General",
+      "Options": [ "General", "Class A", "Class B", "Class C" ]
+    }
+  ]
+}
