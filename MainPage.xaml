@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HamStudyX.MainPage"
+             BackgroundColor="{StaticResource PrimaryBackgroundColor}"
              Title="HamStudyX">
 
     <VerticalStackLayout Spacing="20" Padding="20">
@@ -12,16 +13,18 @@
                FontAttributes="Bold" />
 
         <Picker x:Name="topicPicker"
-                Title="Choose a topic" />
+                Title="Choose a topic:" />
 
         <!-- 2. Button to load the selected topic -->
         <Button Text="Load Quiz"
-                Clicked="OnLoadQuizClicked" />
+                Style="{StaticResource AccentButtonStyle}"
+                Clicked="OnLoadQuizClicked" /> 
 
         <!-- 3. Label for displaying the current question prompt -->
         <Label x:Name="questionLabel"
-               TextColor="Blue"
-               FontSize="22"
+               TextColor="{StaticResource PrimaryTextColor}"
+               FontSize="25"
+               FontAttributes="Bold"
                HorizontalOptions="CenterAndExpand" />
 
         <!-- 4. A stack where we add multiple-choice Buttons dynamically -->
@@ -36,6 +39,7 @@
         <!-- 6. Next Button to move to the next question -->
         <Button x:Name="nextButton"
                 Text="Next"
+                Style="{StaticResource AccentButtonStyle}"
                 Clicked="OnNextClicked"
                 IsVisible="False" />
 

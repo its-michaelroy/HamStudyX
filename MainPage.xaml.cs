@@ -140,7 +140,8 @@ public partial class MainPage : ContentPage
                 var optionButton = new Button
                 {
                     Text = $"{i + 1}) {optionText}",
-                    HorizontalOptions = LayoutOptions.Start
+                    HorizontalOptions = LayoutOptions.Start,
+                    Style = (Style)Application.Current.Resources["AccentButtonStyle"]
                 };
 
                 // When an option is clicked, store the user’s answer in userAnswerEntry
@@ -177,10 +178,12 @@ public partial class MainPage : ContentPage
         if (isCorrect)
         {
             DisplayAlert("Result", "Correct!", "OK");
+            questionLabel.TextColor = (Color)Application.Current.Resources["SuccessColor"];
         }
         else
         {
             DisplayAlert("Result", $"Incorrect! The correct answer is: {question.Answer}", "OK");
+            questionLabel.TextColor = (Color)Application.Current.Resources["ErrorColor"];
         }
 
         // Move to the next question
