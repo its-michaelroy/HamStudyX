@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- 1. Topic Selection -->
+            <!-- 1. Welcome & Topic Selection -->
             <Label Text="Welcome to HamStudyX!"
                    FontSize="22" 
                    FontAttributes="Bold" 
@@ -54,34 +54,43 @@
                    FontAttributes="Bold"
                    HorizontalOptions="CenterAndExpand" 
                    Grid.Row="3" Grid.Column="0" />
+            
+            <!-- 4. Label for displaying the Current Score -->
+            <Label x:Name="scoreLabel"
+                   Text="Score: 0"
+                   TextColor="{StaticResource PrimaryTextColor}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="End" 
+                   Grid.Row="4" Grid.Column="1" />
 
-            <!-- 4. A stack where we add multiple-choice Buttons dynamically -->
+            <!-- 5. A stack where we add multiple-choice Buttons dynamically -->
             <VerticalStackLayout x:Name="optionsStack"
                                  Spacing="10" 
-                                 Grid.Row="4" Grid.Column="0" />
+                                 Grid.Row="5" Grid.Column="0" />
 
-            <!-- 4.5. Label for displaying feedback to the user -->
+            <!-- 6. Label for displaying feedback to the user -->
             <Label x:Name="feedbackLabel"
                    Text=""
                    FontSize="38"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    IsVisible="False" 
-                   Grid.Row="5" Grid.Column="0" />
+                   Grid.Row="6" Grid.Column="0" />
 
-            <!-- 5. Entry for typed answers if it's NOT multiple-choice -->
+            <!-- 7. Entry for typed answers if it's NOT multiple-choice -->
             <Entry x:Name="userAnswerEntry"
                    Placeholder="Type your answer here"
                    IsVisible="False" 
-                   Grid.Row="6" Grid.Column="0" />
+                   Grid.Row="7" Grid.Column="0" />
 
-            <!-- 6. Next Button to move to the next question -->
+            <!-- 8. Next Button to move to the next question -->
             <Button x:Name="nextButton"
                     Text="Check Answer"
                     Style="{StaticResource AccentButtonStyle}"
                     Clicked="OnNextClicked"
                     IsVisible="False" 
-                    Grid.Row="7" Grid.Column="0" />
+                    Grid.Row="8" Grid.Column="0" />
 
         </Grid>
     </ScrollView>

@@ -21,6 +21,24 @@ namespace HamStudyX.Logic
     /// </summary>
     public class QuizManager
     {
+        // Add property to track the user's score
+        public int Score { get; set; } = 0;
+
+        // Property to get the total number of questions
+        public int TotalQuestions => _questions.Count;
+
+        // Add method to reset the score
+        public void ResetScore()
+        {
+            Score = 0;
+        }
+
+        // Add method to increment the score
+        public void IncrementScore()
+        {
+            Score++;
+        }
+
         // A dictionary where key is the Question's Id and value is the Question object
         private Dictionary<int, Question> _questions;
 
@@ -88,53 +106,6 @@ namespace HamStudyX.Logic
                 throw new Exception($"Error loading questions: {ex.Message}");
             }
         }
-
-        /// <summary>
-        /// Starts the quiz, displays instructions, shuffles questions, and handles user input.
-        /// </summary>
-        //public void StartQuiz()
-        //{
-        //    // Extract keys from dictionary and shuffle Q IDS for randomized order
-        //    var keys = new List<int>(_questions.Keys);
-        //    Shuffle(keys);
-
-        //    int score = 0;
-
-        //    // Clear console, display Q, prompt user for answer, check answer, display result, prompt user to continue
-        //    // Iterate over collection conatinig IDS of Qs
-        //    foreach (int key in keys)
-        //    {
-        //        var question = _questions[key];
-        //        Console.Clear();
-        //        question.DisplayQuestion();
-
-        //        Console.Write("\nYour answer: ");
-        //        string userAnswer = Console.ReadLine();
-
-        //        //Checks correctness of user's answer & increments score or revels answer
-        //        if (question.CheckAnswer(userAnswer))
-        //        {
-        //            Console.WriteLine("Correct!");
-        //            score++;
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine($"Incorrect! The correct answer is: {question.Answer}");
-        //        }
-
-        //        Console.WriteLine("\nPress Enter to continue...");
-        //        Console.ReadLine();
-        //    }
-
-        //    double percentage = ((double)score / _questions.Count) * 100;
-        //    //Calc score and display along w percentage
-        //    Console.Clear();
-        //    Console.WriteLine("Quiz Completed!");
-        //    Console.WriteLine($"Your final score is {score} out of {_questions.Count}.");
-        //    Console.WriteLine($"Percentage: {percentage:F2}%");
-        //    Console.WriteLine("\n\nPress Enter to exit.");
-        //    Console.ReadLine();
-        //}
 
         public List<Question> GetAllQuestions()
         {

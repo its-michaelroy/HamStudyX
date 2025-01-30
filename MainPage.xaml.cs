@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Microsoft.Maui.Storage;
 using System.Reflection.PortableExecutable;
+using Microsoft.Maui;
 
 
 namespace HamStudyX;
@@ -66,21 +67,15 @@ public partial class MainPage : ContentPage
         var selectedTopic = topicPicker.Items[topicPicker.SelectedIndex];
 
         // Ensure _allTopics is not null
-        if (_allTopics == null)
+        if (_allTopics == null || !_allTopics.ContainsKey(selectedTopic))
         {
             DisplayAlert("Error", "Topics have not been loaded.", "OK");
             return;
         }
 
-        // Ensure _allTopics contains the selected topic
-        if (!_allTopics.ContainsKey(selectedTopic))
-        {
-            DisplayAlert("Error", "Selected topic not found.", "OK");
-            return;
-        }
-
         // Create a brand new QuizManager
         _quizManager = new QuizManager();
+        _quizManager.ResetScore();
 
         // Because QuizManager.LoadQuestions wants JSON text per topic,
         // we build a partial JSON just for the selected topic:
@@ -104,6 +99,9 @@ public partial class MainPage : ContentPage
 
             // Reset current question index
             _currentIndex = 0;
+
+            // Update the score display
+            scoreLabel.Text = $"Score: {_quizManager.Score}";
 
             // Show the first question
             ShowQuestion(_currentIndex);
@@ -199,6 +197,18 @@ public partial class MainPage : ContentPage
         // Evaluate correctness
         bool isCorrect = question.CheckAnswer(userResponse);
 
+        // If correct, increment the score
+        if (isCorrect && _quizManager != null)
+        {
+            _quizManager.IncrementScore();
+        }
+
+        // Update the score display
+        if (_quizManager != null)
+        {
+            scoreLabel.Text = $"Score: {_quizManager.Score}";
+        }
+
         // Provide feedback
         feedbackLabel.IsVisible = true;
         if (isCorrect)
@@ -228,7 +238,17 @@ public partial class MainPage : ContentPage
         else
         {
             // No more questions
-            await DisplayAlert("Quiz Complete", "You have answered all questions!", "OK");
+            if (_quizManager != null)
+            {
+                double percentage = ((double)_quizManager.Score / _quizManager.TotalQuestions) * 100;
+                await DisplayAlert("Quiz Complete",
+                    $"You have answered all questions!\nYour final score is {_quizManager.Score} out of {_quizManager.TotalQuestions}.\nPercentage: {percentage:F2}%",
+                    "OK");
+            }
+            else
+            {
+                await DisplayAlert("Quiz Complete", "You have answered all questions!", "OK");
+            }
             nextButton.IsVisible = false;
         }
     }
