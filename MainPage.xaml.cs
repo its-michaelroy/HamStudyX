@@ -114,6 +114,8 @@ public partial class MainPage : ContentPage
         }
     }
 
+    private Button? _selectedOptionButton;
+
     private void ShowQuestion(int index)
     {
         if (_questions.Count == 0) return;
@@ -125,6 +127,8 @@ public partial class MainPage : ContentPage
         userAnswerEntry.IsVisible = false;
         userAnswerEntry.Text = string.Empty;
         nextButton.IsVisible = true;
+        feedbackLabel.IsVisible = false;
+        feedbackLabel.Text = "";
 
         // Get the current question
         var question = _questions[index];
@@ -148,6 +152,7 @@ public partial class MainPage : ContentPage
                 optionButton.Clicked += (s, e) =>
                 {
                     userAnswerEntry.Text = optionText;
+                    UpdateSelectedOptionButton(optionButton);
                 };
 
                 optionsStack.Children.Add(optionButton);
@@ -160,31 +165,58 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void OnNextClicked(object sender, EventArgs e)
+    private void UpdateSelectedOptionButton(Button selectedButton)
+    {
+        // Reset the previously selected button's state
+        if (_selectedOptionButton != null)
+        {
+            _selectedOptionButton.BackgroundColor = (Color)Application.Current.Resources["ButtonBackgroundColor"];
+        }
+
+        // Set the new selected button's background color
+        _selectedOptionButton = selectedButton;
+        _selectedOptionButton.BackgroundColor = (Color)Application.Current.Resources["AccentColor"];
+    }
+
+    private async void OnNextClicked(object sender, EventArgs e)
     {
         // No questions loaded? Return.
         if (_questions == null || _questions.Count == 0) return;
+
+        // Prevent proceeding without an answer
+        if (string.IsNullOrWhiteSpace(userAnswerEntry.Text))
+        {
+            await DisplayAlert("Alert", "Please select or enter an answer.", "OK");
+            return;
+        }
 
         // Grab the current question
         var question = _questions[_currentIndex];
 
         // The user's typed (or selected) answer
-        string userResponse = userAnswerEntry.Text?.Trim() ?? "";
+        string userResponse = userAnswerEntry.Text.Trim();
 
         // Evaluate correctness
         bool isCorrect = question.CheckAnswer(userResponse);
 
         // Provide feedback
+        feedbackLabel.IsVisible = true;
         if (isCorrect)
         {
-            DisplayAlert("Result", "Correct!", "OK");
-            questionLabel.TextColor = (Color)Application.Current.Resources["SuccessColor"];
+            feedbackLabel.Text = "Correct!";
+            feedbackLabel.TextColor = (Color)Application.Current.Resources["SuccessColor"];
         }
         else
         {
-            DisplayAlert("Result", $"Incorrect! The correct answer is: {question.Answer}", "OK");
-            questionLabel.TextColor = (Color)Application.Current.Resources["ErrorColor"];
+            feedbackLabel.Text = $"Incorrect! The correct answer is: {question.Answer}";
+            feedbackLabel.TextColor = (Color)Application.Current.Resources["ErrorColor"];
         }
+
+        // Wait for 2 seconds
+        await Task.Delay(TimeSpan.FromSeconds(2));
+
+        // Hide feedback
+        feedbackLabel.IsVisible = false;
 
         // Move to the next question
         _currentIndex++;
@@ -196,8 +228,9 @@ public partial class MainPage : ContentPage
         else
         {
             // No more questions
-            DisplayAlert("Quiz Complete", "You have answered all questions!", "OK");
+            await DisplayAlert("Quiz Complete", "You have answered all questions!", "OK");
             nextButton.IsVisible = false;
         }
     }
+
 }

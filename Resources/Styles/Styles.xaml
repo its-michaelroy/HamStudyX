@@ -23,7 +23,37 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
-    <Style TargetType="Button">
+	<!-- New Button Style with Hover Effect -->
+	<Style TargetType="Button" x:Key="AccentButtonStyle">
+		<Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+		<Setter Property="BackgroundColor" Value="{StaticResource ButtonBackgroundColor}" />
+		<Setter Property="FontFamily" Value="OpenSansRegular"/>
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="BorderWidth" Value="0"/>
+		<Setter Property="CornerRadius" Value="8"/>
+		<Setter Property="Padding" Value="14,10"/>
+		<Setter Property="MinimumHeightRequest" Value="44"/>
+		<Setter Property="MinimumWidthRequest" Value="44"/>
+		<Setter Property="VisualStateManager.VisualStateGroups">
+			<VisualStateGroupList>
+				<VisualStateGroup x:Name="CommonStates">
+					<VisualState x:Name="Normal" />
+					<VisualState x:Name="PointerOver">
+						<VisualState.Setters>
+							<Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+						</VisualState.Setters>
+					</VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled" />
+				</VisualStateGroup>
+			</VisualStateGroupList>
+		</Setter>
+	</Style>
+    <!-- <Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
@@ -47,7 +77,7 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>
+    </Style>-->
 
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
