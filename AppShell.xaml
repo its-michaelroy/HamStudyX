@@ -10,12 +10,12 @@
     <TabBar>
         <!-- Home Tab -->
         <Tab Title="Home">
-            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
         </Tab>
 
         <!-- History Tab -->
         <Tab Title="History">
-            <ShellContent ContentTemplate="{DataTemplate views:HistoryPage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:HistoryPage}" />
         </Tab>
     </TabBar>
 

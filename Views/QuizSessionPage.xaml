@@ -2,11 +2,54 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HamStudyX.Views.QuizSessionPage"
-             Title="QuizSessionPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource PrimaryBackgroundColor}"
+             Title="Quiz Session">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            <!-- 3. Label for displaying the current question prompt -->
+            <Label x:Name="questionLabel"
+               TextColor="{StaticResource PrimaryTextColor}"
+               FontSize="25"
+               FontAttributes="Bold"
+               HorizontalOptions="CenterAndExpand" />
+
+            <!-- 4. Label for displaying the Current Score -->
+            <Label x:Name="scoreLabel"
+               Text="Score: 0"
+               TextColor="{StaticResource PrimaryTextColor}"
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalOptions="End" />
+
+            <!-- 5. A stack where we add multiple-choice Buttons dynamically -->
+            <VerticalStackLayout x:Name="optionsStack"
+                     Spacing="10" />
+
+            <!-- 6. Label for displaying feedback to the user -->
+            <Label x:Name="feedbackLabel"
+               Text=""
+               FontSize="38"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               IsVisible="False" />
+
+            <!-- 7. Entry for typed answers if it's NOT multiple-choice -->
+            <Entry x:Name="userAnswerEntry"
+               Placeholder="Type your answer here"
+               IsVisible="False" />
+
+            <!-- 8. Next Button to move to the next question -->
+            <Button x:Name="nextButton"
+                Text="Check Answer"
+                Style="{StaticResource AccentButtonStyle}"
+                Clicked="OnNextClicked"
+                IsVisible="False" />
+            <!-- Control Buttons -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <Button Text="Quit" Clicked="OnQuitClicked" />
+                <Button Text="Restart" Clicked="OnRestartClicked" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
