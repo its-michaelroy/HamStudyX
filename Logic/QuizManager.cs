@@ -53,7 +53,7 @@ namespace HamStudyX.Logic
         /// Loads questions from a JSON file, creates Question or MultipleChoiceQuestion objects
         /// and stores them in the dictionary.
         /// </summary>
-        public void LoadQuestions(string jsonContent, string selectedTopic)
+        public void LoadQuestions(List<RawQuestion> rawQuestions)
         {
             try
             {
@@ -61,12 +61,12 @@ namespace HamStudyX.Logic
                 //string jsonString = File.ReadAllText(filePath);
 
                 // Deserialize into a dictionary of topics
-                var allTopics = JsonSerializer.Deserialize<Dictionary<string, List<RawQuestion>>>(jsonContent);
+                //var allTopics = JsonSerializer.Deserialize<Dictionary<string, List<RawQuestion>>>(jsonContent);
 
                 // Check validity of topic. Exists?
-                if (allTopics != null && allTopics.ContainsKey(selectedTopic))
+                if (rawQuestions != null || rawQuestions.Count > 0)
                 {
-                    var rawQuestions = allTopics[selectedTopic];
+                    //var rawQuestions = allTopics[selectedTopic];
                     // Iterate over each RawQuestion in the selected topic
                     foreach (var rq in rawQuestions)
                     {
@@ -94,11 +94,6 @@ namespace HamStudyX.Logic
 
                         _questions.Add(rq.Id, q);
                     }
-                }
-                else
-                {
-                    //Convert to throws from WriteLines
-                    throw new Exception($"Topic '{selectedTopic}' not found.");
                 }
             }
             catch (Exception ex)

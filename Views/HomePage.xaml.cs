@@ -1,6 +1,5 @@
 using HamStudyX.Logic;
 using System.Text.Json;
-using HamStudyX.Views;
 
 
 namespace HamStudyX.Views;
@@ -14,21 +13,21 @@ public partial class HomePage : ContentPage
     public HomePage()
     {
         InitializeComponent();
-        LoadAllTopicsIntoPicker(); // Step 1: fill the Picker with topic names
+        LoadAllTopicsIntoPicker(); // Fill the Picker with topic names
     }
 
     private async void LoadAllTopicsIntoPicker()
     {
         try
         {
-            // 1) Build the path to your JSON asset/open file async
+            // Build path to JSON asset/open file async
             var jsonPath = await FileSystem.Current.OpenAppPackageFileAsync("QuestionSet.json");
 
-            // 2) Read it into a string
+            // Read it into a string
             using var reader = new StreamReader(jsonPath);
             string jsonContent = await reader.ReadToEndAsync();
 
-            // 3) Deserialize into a dictionary of topics
+            // Deserialize into a dictionary of topics
             _allTopics = JsonSerializer.Deserialize<Dictionary<string, List<RawQuestion>>>(jsonContent);
 
             if (_allTopics == null || _allTopics.Count == 0)
@@ -37,7 +36,7 @@ public partial class HomePage : ContentPage
                 return;
             }
 
-            // 4) Populate the Picker with the topic names (the dictionary keys)
+            // Populate the Picker with the topic names (the dictionary keys)
             foreach (var topic in _allTopics.Keys)
             {
                 topicPicker.Items.Add(topic);

@@ -27,11 +27,11 @@ namespace HamStudyX.Logic
             Answer = answer;
         }
 
-        // Display the question
-        public virtual void DisplayQuestion()
-        {
-            Console.WriteLine(Prompt);
-        }
+        //// Display the question via console
+        //public virtual void DisplayQuestion()
+        //{
+        //    Console.WriteLine(Prompt);
+        //}
 
         // Method to check if the user's response is correct
         public virtual bool CheckAnswer(string userResponse)

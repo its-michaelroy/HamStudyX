@@ -1,14 +1,19 @@
 using HamStudyX.Logic;
 using System.Text.Json;
-using HamStudyX.Views;
 
 namespace HamStudyX.Views;
 
+// Allow passing params by query when navigating to this page
 [QueryProperty(nameof(SelectedTopic), "SelectedTopic")]
 [QueryProperty(nameof(AllTopics), "AllTopics")]
 
 public partial class QuizSessionPage : ContentPage
 {
+    // Manages quiz logic like loading questions and scoring
+    // List to hold all questions in current quiz session
+    // Tracks index of current Question
+    // Topic selected by user for the quiz
+    // Lastly, all topics and related questions
     private QuizManager? _quizManager;
     private List<Question> _questions = new();
     private int _currentIndex = 0;
@@ -20,6 +25,10 @@ public partial class QuizSessionPage : ContentPage
         InitializeComponent();
     }
 
+    /// <summary>
+    /// Called when page appears. Inits quiz if not already done.
+    /// Load Quiz if not already done
+    /// </summary>
     protected override void OnAppearing()
     {
         base.OnAppearing();
@@ -30,6 +39,10 @@ public partial class QuizSessionPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// Loads quiz for user selectedtopic.
+    /// Check if topic is chosen and Q is availabl
+    /// </summary>
     private void LoadQuiz()
     {
         if (string.IsNullOrEmpty(SelectedTopic) || AllTopics == null)
@@ -37,24 +50,24 @@ public partial class QuizSessionPage : ContentPage
             return;
         }
 
-        // Create a brand new QuizManager
+        // Create new QuizManager and reset score
         _quizManager = new QuizManager();
         _quizManager.ResetScore();
 
         // Because QuizManager.LoadQuestions wants JSON text per topic,
         // we build a partial JSON just for the selected topic:
-        var selectedRaw = new Dictionary<string, List<RawQuestion>>
-        {
-            { SelectedTopic, AllTopics[SelectedTopic] }
-        };
-        var partialJson = JsonSerializer.Serialize(selectedRaw);
+        //var selectedRaw = new Dictionary<string, List<RawQuestion>>
+        //{
+        //    { SelectedTopic, AllTopics[SelectedTopic] }
+        //};
+        //var partialJson = JsonSerializer.Serialize(selectedRaw);
 
         try
         {
-            // Load the topic into QuizManager
-            _quizManager.LoadQuestions(partialJson, SelectedTopic);
+            // Load the raw questions into QuizManager
+            _quizManager.LoadQuestions(AllTopics[SelectedTopic]);
 
-            // Retrieve the question list
+            // Get all questions from list
             _questions = _quizManager.GetAllQuestions();
 
             // Optional: shuffle them
@@ -75,17 +88,25 @@ public partial class QuizSessionPage : ContentPage
             DisplayAlert("Error", ex.Message, "OK");
         }
     }
+
+    /// <summary>
+    /// SHow Question at selected index.
+    /// </summary>
+    /// param name of index for question to display.
     private void ShowQuestion(int index)
     {
         if (_questions.Count == 0) return;
         if (index < 0 || index >= _questions.Count) return;
 
-        // Clear out th previous UI
+        // Clear out th previous UI elements for new Question
         questionLabel.Text = string.Empty;
         optionsStack.Children.Clear();
+        
         userAnswerEntry.IsVisible = false;
         userAnswerEntry.Text = string.Empty;
+        
         nextButton.IsVisible = true;
+        
         feedbackLabel.IsVisible = false;
         feedbackLabel.Text = "";
 
@@ -107,7 +128,8 @@ public partial class QuizSessionPage : ContentPage
                     Style = (Style)Application.Current.Resources["AccentButtonStyle"]
                 };
 
-                // When an option is clicked, store the user’s answer in userAnswerEntry
+                // When option is clicked, store the users answer in userAnswerEntry
+                // Update selected buttons appearance
                 optionButton.Clicked += (s, e) =>
                 {
                     userAnswerEntry.Text = optionText;
@@ -123,33 +145,44 @@ public partial class QuizSessionPage : ContentPage
             userAnswerEntry.IsVisible = true;
         }
     }
+
+    // Store the selected button to update its appearance
     private Button? _selectedOptionButton;
+
+    /// <summary>
+    /// Update the appearance of the selected button.
+    /// </summary>
+    /// <param name="selectedButton"></param>
     private void UpdateSelectedOptionButton(Button selectedButton)
     {
-        // Reset the previously selected button's state
+        // Reset previously selected button's state
         if (_selectedOptionButton != null)
         {
             _selectedOptionButton.BackgroundColor = (Color)Application.Current.Resources["ButtonBackgroundColor"];
         }
 
-        // Set the new selected button's background color
+        // Set/Highlight the new selected button's bg color
         _selectedOptionButton = selectedButton;
         _selectedOptionButton.BackgroundColor = (Color)Application.Current.Resources["AccentColor"];
     }
 
+    /// <summary>
+    /// Called when Next/Check/Verify button is clicked.
+    /// Compare users answer to correct answer then proceeds.
+    /// </summary>
     private async void OnNextClicked(object sender, EventArgs e)
     {
         // No questions loaded? Return.
         if (_questions == null || _questions.Count == 0) return;
 
-        // Prevent proceeding without an answer
+        // Prevent proceeding w/o an answer
         if (string.IsNullOrWhiteSpace(userAnswerEntry.Text))
         {
             await DisplayAlert("Alert", "Please select or enter an answer.", "OK");
             return;
         }
 
-        // Grab the current question
+        // Grab current question
         var question = _questions[_currentIndex];
 
         // The user's typed (or selected) answer
@@ -164,7 +197,7 @@ public partial class QuizSessionPage : ContentPage
             _quizManager.IncrementScore();
         }
 
-        // Update the score display
+        // Update score on the UI/display
         if (_quizManager != null)
         {
             scoreLabel.Text = $"Score: {_quizManager.Score}";
@@ -179,11 +212,11 @@ public partial class QuizSessionPage : ContentPage
         }
         else
         {
-            feedbackLabel.Text = $"Incorrect! The correct answer is: {question.Answer}";
+            feedbackLabel.Text = $"Incorrect!\nThe correct answer is: {question.Answer}";
             feedbackLabel.TextColor = (Color)Application.Current.Resources["ErrorColor"];
         }
 
-        // Wait for 2 seconds
+        // Wait for 2 seconds to see feedback
         await Task.Delay(TimeSpan.FromSeconds(2));
 
         // Hide feedback
@@ -198,7 +231,7 @@ public partial class QuizSessionPage : ContentPage
         }
         else
         {
-            // No more questions
+            // No more questions since all Qs have been answered
             if (_quizManager != null)
             {
                 double percentage = ((double)_quizManager.Score / _quizManager.TotalQuestions) * 100;
@@ -214,12 +247,18 @@ public partial class QuizSessionPage : ContentPage
         }
     }
 
-
+    /// <summary>
+    /// Called when Quit button is clicked and returns to Home Page.
+    /// </summary>
     private async void OnQuitClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("..");
     }
 
+    /// <summary>
+    /// Called when Restart button is clicked and resets quiz.
+    /// Displays the first question again.
+    /// </summary>
     private void OnRestartClicked(object sender, EventArgs e)
     {
         _currentIndex = 0;
@@ -228,6 +267,7 @@ public partial class QuizSessionPage : ContentPage
         ShowQuestion(_currentIndex);
     }
 
+    // CHANGE TO PERSIST STATE
     private async void OnQuizCompleted()
     {
         if (_quizManager != null)
