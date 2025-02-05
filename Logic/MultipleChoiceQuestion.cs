@@ -23,19 +23,6 @@ namespace HamStudyX.Logic
         }
 
         /// <summary>
-        /// Displays the question along with multiple choice options.
-        /// Overrides the base class method.
-        /// </summary>
-        //public override void DisplayQuestion()
-        //{
-        //    Console.WriteLine(Prompt);
-        //    for (int i = 0; i < Options.Count; i++)
-        //    {
-        //        Console.WriteLine($"{i + 1}) {Options[i]}");
-        //    }
-        //}
-
-        /// <summary>
         /// Checks the user's answer.
         /// Users can enter the exact answer or the option number.
         /// Overrides the base class method Q.CheckAnswer

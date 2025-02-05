@@ -1,4 +1,5 @@
 using HamStudyX.Logic;
+using HamStudyX.Models;
 using System.Text.Json;
 
 namespace HamStudyX.Views;
@@ -27,9 +28,9 @@ public partial class QuizSessionPage : ContentPage
 
     /// <summary>
     /// Called when page appears. Inits quiz if not already done.
-    /// Load Quiz if not already done
+    /// Load Quiz when page appears
     /// </summary>
-    protected override void OnAppearing()
+    protected override void OnAppearing() //
     {
         base.OnAppearing();
 
@@ -54,14 +55,6 @@ public partial class QuizSessionPage : ContentPage
         _quizManager = new QuizManager();
         _quizManager.ResetScore();
 
-        // Because QuizManager.LoadQuestions wants JSON text per topic,
-        // we build a partial JSON just for the selected topic:
-        //var selectedRaw = new Dictionary<string, List<RawQuestion>>
-        //{
-        //    { SelectedTopic, AllTopics[SelectedTopic] }
-        //};
-        //var partialJson = JsonSerializer.Serialize(selectedRaw);
-
         try
         {
             // Load the raw questions into QuizManager
@@ -70,7 +63,6 @@ public partial class QuizSessionPage : ContentPage
             // Get all questions from list
             _questions = _quizManager.GetAllQuestions();
 
-            // Optional: shuffle them
             // You can also shuffle a separate copy if you prefer
             _quizManager.Shuffle(_questions);
 
@@ -92,7 +84,6 @@ public partial class QuizSessionPage : ContentPage
     /// <summary>
     /// SHow Question at selected index.
     /// </summary>
-    /// param name of index for question to display.
     private void ShowQuestion(int index)
     {
         if (_questions.Count == 0) return;
@@ -101,12 +92,12 @@ public partial class QuizSessionPage : ContentPage
         // Clear out th previous UI elements for new Question
         questionLabel.Text = string.Empty;
         optionsStack.Children.Clear();
-        
+
         userAnswerEntry.IsVisible = false;
         userAnswerEntry.Text = string.Empty;
-        
+
         nextButton.IsVisible = true;
-        
+
         feedbackLabel.IsVisible = false;
         feedbackLabel.Text = "";
 
@@ -152,7 +143,6 @@ public partial class QuizSessionPage : ContentPage
     /// <summary>
     /// Update the appearance of the selected button.
     /// </summary>
-    /// <param name="selectedButton"></param>
     private void UpdateSelectedOptionButton(Button selectedButton)
     {
         // Reset previously selected button's state
@@ -244,6 +234,8 @@ public partial class QuizSessionPage : ContentPage
                 await DisplayAlert("Quiz Complete", "You have answered all questions!", "OK");
             }
             nextButton.IsVisible = false;
+
+            await OnQuizCompleted();
         }
     }
 
@@ -256,8 +248,7 @@ public partial class QuizSessionPage : ContentPage
     }
 
     /// <summary>
-    /// Called when Restart button is clicked and resets quiz.
-    /// Displays the first question again.
+    /// When Restart button is clicked resets quiz and displays 1st Question again.
     /// </summary>
     private void OnRestartClicked(object sender, EventArgs e)
     {
@@ -268,14 +259,11 @@ public partial class QuizSessionPage : ContentPage
     }
 
     // CHANGE TO PERSIST STATE
-    private async void OnQuizCompleted()
+    private async Task OnQuizCompleted()
     {
         if (_quizManager != null)
         {
             double percentage = ((double)_quizManager.Score / _quizManager.TotalQuestions) * 100;
-            await DisplayAlert("Quiz Complete",
-                $"You have answered all questions!\nYour final score is {_quizManager.Score} out of {_quizManager.TotalQuestions}.\nPercentage: {percentage:F2}%",
-                "OK");
 
             var quizResult = new QuizHistoryItem
             {
@@ -284,8 +272,19 @@ public partial class QuizSessionPage : ContentPage
                 ScorePercentage = percentage
             };
 
-            // Save quizResult to persistent storage SQlite or Mysql or mariadb or cloud based?
-            // using Preferences...etc (replace with actual storage mechanism above)
+            try
+            {
+                await App.Database.SaveQuizHistoryItemAsync(quizResult);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to save quiz history: {ex.Message}", "OK");
+            }
+
+            await DisplayAlert("Quiz Complete",
+                $"You have answered all questions!\nYour final score is {_quizManager.Score} out of {_quizManager.TotalQuestions}.\nPercentage: {percentage:F2}%",
+                "OK");
+            await Shell.Current.GoToAsync("..");
         }
 
         nextButton.IsVisible = false;

@@ -1,35 +1,33 @@
 using System.Collections.ObjectModel;
-using HamStudyX.Views;
+using HamStudyX.Models;
 
 namespace HamStudyX.Views;
 
 public partial class HistoryPage : ContentPage
 {
-    public ObservableCollection<QuizHistoryItem> QuizHistory { get; set; } = new();
-
     public HistoryPage()
     {
         InitializeComponent();
-        BindingContext = this;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        LoadQuizHistory();
+        try
+        {
+            var historyItems = await App.Database.GetQuizHistoryAsync();
+            if (historyItems != null && historyItems.Count > 0)
+            {
+                historyListView.ItemsSource = new ObservableCollection<QuizHistoryItem>(historyItems);
+            }
+            else
+            {
+                await DisplayAlert("No History", "No quiz history available.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Failed to load quiz history: {ex.Message}", "OK");
+        }
     }
-
-    private void LoadQuizHistory()
-    {
-        // Retrieve quiz history from persist storage (Sqlite, MySQL, etc.)
-        // Use Pref..etc above mechs ^
-        // QuizHistory == Load from sto
-    }
-}
-
-public class QuizHistoryItem
-{
-    public DateTime DateTaken { get; set; }
-    public string? Topic { get; set; }
-    public double ScorePercentage { get; set; }
 }

@@ -57,16 +57,10 @@ namespace HamStudyX.Logic
         {
             try
             {
-                // Read all text from the JSON file
-                //string jsonString = File.ReadAllText(filePath);
-
-                // Deserialize into a dictionary of topics
-                //var allTopics = JsonSerializer.Deserialize<Dictionary<string, List<RawQuestion>>>(jsonContent);
-
                 // Check validity of topic. Exists?
-                if (rawQuestions != null || rawQuestions.Count > 0)
+                if (rawQuestions != null || rawQuestions?.Count > 0)
                 {
-                    //var rawQuestions = allTopics[selectedTopic];
+                    
                     // Iterate over each RawQuestion in the selected topic
                     foreach (var rq in rawQuestions)
                     {

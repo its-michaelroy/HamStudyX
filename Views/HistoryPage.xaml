@@ -3,16 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HamStudyX.Views.HistoryPage"
              BackgroundColor="{StaticResource PrimaryBackgroundColor}"
-             Title="History">
-    <CollectionView ItemsSource="{Binding QuizHistory}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <StackLayout Padding="10">
-                    <Label Text="{Binding DateTaken}" FontAttributes="Bold" />
-                    <Label Text="Topic: {Binding Topic}" />
-                    <Label Text="Score: {Binding ScorePercentage}%" />
-                </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+             Title="Quiz History">
+    <StackLayout>
+        <!-- History ListView -->
+        <ListView x:Name="historyListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <!-- Bind to DateTaken, Topic, and ScorePercentage from QuizHistory Item -->
+                            <Label Text="{Binding DateTaken, StringFormat='{0:g}'}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Topic}" />
+                            <Label Text="{Binding ScorePercentage, StringFormat='Score: {0}%'}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>
