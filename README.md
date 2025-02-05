@@ -1,4 +1,8 @@
-﻿# **HamStudyX**  
+﻿<h1>
+  <img src="Resources/Images/HamStudyX.jpg" width="100" align="center">
+  HamStudyX
+</h1>
+  
 *A Cross-Platform Ham Radio Exam Study App*
 
 HamStudyX is a **cross-platform mobile application** designed to help users prepare for ham radio licensing exams. Built using **.NET MAUI**, it provides a structured way to practice multiple-choice and open-ended questions, track progress, and review quiz history — all within an intuitive interface.
@@ -27,7 +31,8 @@ Studying for ham radio exams can be challenging without the right resources. **H
 ✅ Enhance learning through an **intuitive interface**  
 
 ### 🎯 **Problem Solved**
-Limited options for study apps and lacking additional interactive features. HamStudyX **solves this by**:  
+Limited options for studying & lacking additional interactive features.  
+HamStudyX **solves this by**:  
 ✔ Centralizing study materials in one app  
 ✔ Simulating real exam conditions with **timed quizzes** (FUTURE FEATURE)  
 ✔ Allowing users to **focus on specific topics... including topics outside of Ham Radio**  
@@ -42,7 +47,7 @@ Developing HamStudyX provided valuable insights into:
 ---
 
 ## ✨ **Features**
-✅ **Topic Selection** – Choose specific topics to focus your study besides Amateur radio 
+✅ **Topic Selection** – Choose specific topics to focus your study besides Amateur radio  
 ✅ **Multiple Question Types** – Practice with multiple-choice & open-ended questions  
 ✅ **Quiz Session Management** – Start, pause(COMING SOON), and resume quizzes anytime  
 ✅ **Immediate Feedback** – Know instantly whether your answer is correct  
@@ -117,8 +122,7 @@ The history tab helps users track their progress over time.
 ---
 
 ## 💡 **Credits**
-👨‍💻 **Developer:** [Michael Roy](https://github.com/its-michaelroy) 
-🛠 **Contributors:** Open-source contributions are welcome!  
+👨‍💻 **Developer:** [Michael Roy](https://github.com/its-michaelroy)  
 📚 **Resources:**  
 - [.NET MAUI Documentation](https://learn.microsoft.com/en-us/dotnet/maui/)  
 - [SQLite](https://www.sqlite.org/index.html) for local data storage  
