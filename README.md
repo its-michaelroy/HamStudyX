@@ -13,7 +13,7 @@ HamStudyX is a **cross-platform mobile application** designed to help users prep
 ## 📌 **Table of Contents**
 - [Project Description](#project-description)
 - [Features](#features)
-- [Installation & Running](#installation-and-running)
+- [Installation & Running](#installation-&-running)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Credits](#credits)
@@ -21,7 +21,7 @@ HamStudyX is a **cross-platform mobile application** designed to help users prep
 
 ---
 
-## 📖 **Project Description**
+## <h2 id="project-description">📖 Project Description</h2>
 ### 🎯 **Motivation**
 Studying for ham radio exams can be challenging without the right resources. **HamStudyX** was created to offer **a convenient and structured way** for aspiring ham radio operators to prepare effectively with the capablity to add and study other topics as well. 
 
@@ -47,7 +47,7 @@ Developing HamStudyX provided valuable insights into:
 
 ---
 
-## ✨ **Features**
+## <h2 id="features">✨ Features</h2>
 ✅ **Topic Selection** – Choose specific topics to focus your study besides Amateur radio  
 ✅ **Multiple Question Types** – Practice with multiple-choice & open-ended questions  
 ✅ **Quiz Session Management** – Start, pause(COMING SOON), and resume quizzes anytime  
@@ -57,7 +57,7 @@ Developing HamStudyX provided valuable insights into:
 
 ---
 
-## 🛠 **Installation and Running**
+<h2 id="installation-&-running">🛠 Installation & Running</h2>
 To install and run HamStudyX locally, follow these steps:
 
 ### **🔹 Prerequisites**
@@ -87,7 +87,7 @@ Launch the app on an **emulator or physical device** connected to your developme
 
 ---
 
-## 🎮 **Usage**
+## <h2 id="usage">🎮 Usage</h2>
 ### **🔹 Starting a Quiz**
 1️⃣ **Launch the App** – Upon opening, you'll see the **Home Page**  
 2️⃣ **Select a Topic** – Choose from available topics in the **Topic Picker**  
@@ -107,7 +107,7 @@ Launch the app on an **emulator or physical device** connected to your developme
 
 ---
 
-## 📸 **Screenshots**
+## <h2 id="screenshots">📸 Screenshots</h2>
 ### 📍 Home Screen
 The home screen allows users to select topics and begin their quiz.
 ![Home Screen](Resources/Images/home.png)
@@ -122,7 +122,7 @@ The history tab helps users track their progress over time.
 
 ---
 
-## 💡 **Credits**
+## <h2 id="credits">💡 Credits</h2>
 👨‍💻 **Developer:** [Michael Roy](https://github.com/its-michaelroy)  
 📚 **Resources:**  
 - [.NET MAUI Documentation](https://learn.microsoft.com/en-us/dotnet/maui/)  
@@ -131,5 +131,5 @@ The history tab helps users track their progress over time.
 
 ---
 
-## 📜 **License**
+## <h2 id="license">📜 License</h2>
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
