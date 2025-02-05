@@ -159,6 +159,7 @@ public partial class QuizSessionPage : ContentPage
     /// <summary>
     /// Called when Next/Check/Verify button is clicked.
     /// Compare users answer to correct answer then proceeds.
+    /// Event handler for "Checked button" click, which was changed to "Next" button.
     /// </summary>
     private async void OnNextClicked(object sender, EventArgs e)
     {
