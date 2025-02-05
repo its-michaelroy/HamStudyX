@@ -17,6 +17,7 @@
         <!-- 2. Button to load the selected topic -->
         <Button Text="Load Quiz"
             Style="{StaticResource AccentButtonStyle}"
+            Margin="0,20,0,0"
             Clicked="OnLoadQuizClicked" />
     </StackLayout>
 </ContentPage>
