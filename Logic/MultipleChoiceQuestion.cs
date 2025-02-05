@@ -5,17 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// <summary>
-// Class Inherits from Question & is for MC Questions
-// </summary>
+
 namespace HamStudyX.Logic
 {
-    //Multiple Choice questions
-    //Inherit from Question & add list of opts
+    /// <summary>
+    /// Represents a multiple-choice question (mcq).
+    /// Inherits from the base Question class and adds a list of options.
+    /// </summary>
     public class MultipleChoiceQuestion : Question
     {
+        // List of possible answers for the multiple-choice question.
         public List<string> Options { get; set; }
         [SetsRequiredMembers]
+
+        /// <summary>
+        /// Initializes a new instance of the MultipleChoiceQuestion class.
+        /// ID, prompt, answer, and options.
+        /// </summary>
         public MultipleChoiceQuestion(int id, string prompt, string answer, List<string> options)
                 : base(id, prompt, answer)
         {
@@ -24,12 +30,11 @@ namespace HamStudyX.Logic
 
         /// <summary>
         /// Checks the user's answer.
-        /// Users can enter the exact answer or the option number.
         /// Overrides the base class method Q.CheckAnswer
         /// </summary>
         public override bool CheckAnswer(string userResponse)
         {
-            // First, check if user entered a number
+            // First, check if user entered a number cons
             if (int.TryParse(userResponse, out int choiceNumber))
             {
                 int index = choiceNumber - 1;

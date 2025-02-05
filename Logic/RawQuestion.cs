@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 // </summary>
 namespace HamStudyX.Logic
 {
-    // A class used only to help deserialize the JSON structure
+    // A class used to help deserialize the JSON structure
     public class RawQuestion
     {
         public int Id { get; set; }

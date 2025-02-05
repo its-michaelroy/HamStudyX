@@ -27,7 +27,7 @@ public partial class QuizSessionPage : ContentPage
     }
 
     /// <summary>
-    /// Called when page appears. Inits quiz if not already done.
+    /// Called when page appears. Inits quiz
     /// Load Quiz when page appears
     /// </summary>
     protected override void OnAppearing() //
@@ -258,7 +258,7 @@ public partial class QuizSessionPage : ContentPage
         ShowQuestion(_currentIndex);
     }
 
-    // CHANGE TO PERSIST STATE
+    // Added method to save quiz history w/ sqlite db
     private async Task OnQuizCompleted()
     {
         if (_quizManager != null)

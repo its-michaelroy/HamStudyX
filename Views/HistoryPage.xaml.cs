@@ -10,14 +10,19 @@ public partial class HistoryPage : ContentPage
         InitializeComponent();
     }
 
+    /// <summary>
+    /// Called when the page appears. Loads the quiz history from the database.
+    /// </summary>
     protected override async void OnAppearing()
     {
         base.OnAppearing();
         try
         {
+            // Gets quiz history using DatabaseService
             var historyItems = await App.Database.GetQuizHistoryAsync();
             if (historyItems != null && historyItems.Count > 0)
             {
+                // Binds the history items to the ListView
                 historyListView.ItemsSource = new ObservableCollection<QuizHistoryItem>(historyItems);
             }
             else

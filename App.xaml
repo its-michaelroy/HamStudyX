@@ -5,6 +5,7 @@
              x:Class="HamStudyX.App">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Merged dictionaries for color & styles -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

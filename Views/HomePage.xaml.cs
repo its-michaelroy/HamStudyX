@@ -7,7 +7,7 @@ namespace HamStudyX.Views;
 public partial class HomePage : ContentPage
 {
     // Copy of the entire JSON data so we can easily switch topics.
-    // Key: topic name, Value: list of RawQuestion objects
+    // Dict to hold all topics & Qs. Key: topic name, Value: list of RawQuestion objects
     private Dictionary<string, List<RawQuestion>>? _allTopics;
 
     public HomePage()
@@ -16,6 +16,9 @@ public partial class HomePage : ContentPage
         LoadAllTopicsIntoPicker(); // Fill the Picker with topic names
     }
 
+    /// <summary>
+    /// Loads all topics from the JSON file and populates the Picker control.
+    /// </summary>
     private async void LoadAllTopicsIntoPicker()
     {
         try
@@ -36,10 +39,10 @@ public partial class HomePage : ContentPage
                 return;
             }
 
-            // Populate the Picker with the topic names (the dictionary keys)
+            // Load the Picker with the topic names (the dictionary keys)
             foreach (var topic in _allTopics.Keys)
             {
-                topicPicker.Items.Add(topic);
+                topicPicker.Items.Add(topic); //Connect to picker in xaml
             }
         }
         catch (Exception ex)
@@ -48,6 +51,10 @@ public partial class HomePage : ContentPage
         }
     }
 
+    /// <summary>
+    /// Event handler for the Load Quiz button.
+    /// Navigates to the QuizSessionPage with the selected topic.
+    /// </summary>
     private async void OnLoadQuizClicked(object sender, EventArgs e)
     {
         // Ensure user has picked a topic
@@ -65,6 +72,7 @@ public partial class HomePage : ContentPage
             await DisplayAlert("Error", "Topics have not been loaded.", "OK");
             return;
         }
+
         // Navigate to QuizSessionPage and pass the selected topic
         await Shell.Current.GoToAsync(nameof(QuizSessionPage), new Dictionary<string, object>
         {

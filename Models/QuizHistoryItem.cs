@@ -7,6 +7,10 @@ using SQLite;
 
 namespace HamStudyX.Models
 {
+    /// <summary>
+    /// Shows record of completed quiz session.
+    /// ID, Date, Topic, and ScorePercentage.
+    /// </summary>
     public class QuizHistoryItem
     {
         [PrimaryKey, AutoIncrement]

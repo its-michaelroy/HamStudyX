@@ -20,6 +20,10 @@ namespace HamStudyX.Logic
         //Default constructor & Initializer
         public Question() { }
         [SetsRequiredMembers]
+
+        /// <summary>
+        /// Initializes a new instance of the Question class with specified values.
+        /// </summary>
         public Question(int id, string prompt, string answer)
         {
             Id = id;

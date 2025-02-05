@@ -50,7 +50,7 @@ namespace HamStudyX.Logic
         }
 
         /// <summary>
-        /// Loads questions from a JSON file, creates Question or MultipleChoiceQuestion objects
+        /// Loads questions from a raw data, creates/inits Question or MultipleChoiceQuestion objects
         /// and stores them in the dictionary.
         /// </summary>
         public void LoadQuestions(List<RawQuestion> rawQuestions)
