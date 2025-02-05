@@ -1,8 +1,9 @@
 ﻿<h1>
   <img src="Resources/Images/HamStudyX.jpg" width="100" align="center">
   HamStudyX
-</h1>
-  
+</h1>  
+
+
 *A Cross-Platform Ham Radio Exam Study App*
 
 HamStudyX is a **cross-platform mobile application** designed to help users prepare for ham radio licensing exams. Built using **.NET MAUI**, it provides a structured way to practice multiple-choice and open-ended questions, track progress, and review quiz history — all within an intuitive interface.
@@ -56,7 +57,7 @@ Developing HamStudyX provided valuable insights into:
 
 ---
 
-## 🛠 **Installation & Running**
+## 🛠 **Installation and Running**
 To install and run HamStudyX locally, follow these steps:
 
 ### **🔹 Prerequisites**
